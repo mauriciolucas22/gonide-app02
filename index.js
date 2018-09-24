@@ -1,7 +1,7 @@
 const app = require('express')();
 const mongoose = require('mongoose');
 
-const dbConfig = require('../config/database');
+const dbConfig = require('./config/database');
 
 // mongoose.connect('mongodb://user:password@localhost/twitter');
 mongoose.connect(dbConfig.url);
