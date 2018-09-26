@@ -53,4 +53,11 @@ UserSchema.pre('save', async function hashPassword(next) {
   this.password = await bcrypt.hash(this.password, 8);
 });
 
+// Verifica password
+UserSchema.methods = {
+  compareHash(password) {
+    return bcrypt.compare(password, this.password);
+  },
+};
+
 mongoose.model('User', UserSchema);
