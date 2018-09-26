@@ -1,5 +1,8 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+
+const authConfig = require('../../config/auth');
 
 // schema = tabela
 const UserSchema = new mongoose.Schema({
@@ -53,10 +56,17 @@ UserSchema.pre('save', async function hashPassword(next) {
   this.password = await bcrypt.hash(this.password, 8);
 });
 
-// Verifica password
 UserSchema.methods = {
+  // Verifica password
   compareHash(password) {
     return bcrypt.compare(password, this.password);
+  },
+
+  // gera token
+  generateToken() {
+    return jwt.sign({ id: this.id }, authConfig.secret, {
+      expiresIn: 86400, // 1 dia
+    });
   },
 };
 
