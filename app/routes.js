@@ -30,6 +30,7 @@ routes.delete('/tweets/:id', controllers.tweetController.destroy);
  */
 // já tem o userId na seção então não precisa do /:id
 routes.put('/users', controllers.userController.update);
+routes.get('/users/me', controllers.userController.me);
 
 /**
  * Likes
