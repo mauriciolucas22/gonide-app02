@@ -25,4 +25,10 @@ routes.use(authMiddleware);
 routes.post('/tweets', controllers.tweetController.create);
 routes.delete('/tweets/:id', controllers.tweetController.destroy);
 
+/**
+ * Users
+ */
+// já tem o userId na seção então não precisa do /:id
+routes.put('/users', controllers.userController.update);
+
 module.exports = routes;
