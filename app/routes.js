@@ -23,6 +23,6 @@ routes.use(authMiddleware);
  * Tweets
  */
 routes.post('/tweets', controllers.tweetController.create);
-routes.delete('/tweets', controllers.tweetController.destroy);
+routes.delete('/tweets/:id', controllers.tweetController.destroy);
 
 module.exports = routes;
