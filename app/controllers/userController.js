@@ -20,6 +20,24 @@ module.exports = {
     }
   },
 
+  async feed(req, res, next) {
+    try {
+      const user = await User.findById(req.userId);
+      const { following } = user;
+
+      const tweets = await Tweet
+        .find({
+          user: { $in: [user.id, ...following] },
+        })
+        .limit(50)
+        .sort('-createdAt'); // ordena ao contrario
+
+      return res.json(tweets);
+    } catch (err) {
+      return next(err);
+    }
+  },
+
   async update(req, res, next) {
     try {
       const id = req.userId;
