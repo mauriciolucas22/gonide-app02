@@ -1,17 +1,17 @@
 const mongoose = require('mongoose');
 
 const User = mongoose.model('User');
-const Tweet = mongoose.model('Tweet');
+const Post = mongoose.model('Post');
 
 module.exports = {
   async me(req, res, next) {
     try {
       const user = await User.findById(req.userId);
-      const tweetCount = await Tweet.find({ user: user.id }).count();
+      const postCount = await Post.find({ user: user.id }).count();
 
       return res.json({
         user,
-        tweetCount,
+        postCount,
         followersCount: user.followers.length,
         followingCount: user.following.length,
       });
@@ -25,14 +25,14 @@ module.exports = {
       const user = await User.findById(req.userId);
       const { following } = user;
 
-      const tweets = await Tweet
+      const posts = await Post
         .find({
           user: { $in: [user.id, ...following] },
         })
         .limit(50)
         .sort('-createdAt'); // ordena ao contrario
 
-      return res.json(tweets);
+      return res.json(posts);
     } catch (err) {
       return next(err);
     }

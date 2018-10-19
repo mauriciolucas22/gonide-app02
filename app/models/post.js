@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const TweetSchema = mongoose.Schema({
+const PostSchema = mongoose.Schema({
   content: {
     type: String,
     required: true,
@@ -16,10 +16,12 @@ const TweetSchema = mongoose.Schema({
 
   likes: [{ type: mongoose.Schema.ObjectId, ref: 'User' }],
 
+  comments: [{ type: mongoose.Schema.ObjectId, ref: 'Comment' }],
+
   createdAt: {
     type: Date,
     default: Date.now,
   },
 });
 
-mongoose.model('Tweet', TweetSchema);
+mongoose.model('Post', PostSchema);

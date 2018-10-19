@@ -20,10 +20,18 @@ routes.post('/signin', controllers.authController.signin);
 routes.use(authMiddleware);
 
 /**
- * Tweets
+ * Posts
  */
-routes.post('/tweets', controllers.tweetController.create);
-routes.delete('/tweets/:id', controllers.tweetController.destroy);
+routes.get('/posts', controllers.postController.index);
+routes.get('/post/:id', controllers.postController.show);
+routes.post('/post', controllers.postController.create);
+routes.delete('/post/:id', controllers.postController.destroy);
+
+/**
+ * Comments
+ */
+routes.get('/comment/:id', controllers.commentController.show);
+routes.post('/comment', controllers.commentController.create);
 
 /**
  * Users
